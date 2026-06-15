@@ -1,0 +1,98 @@
+{% extends "accounts/base.html" %}
+{% block title %}Register – HF Markets{% endblock %}
+
+{% block header_cta %}
+    <a href="{% url 'login' %}" class="btn-header btn-header--outline">Login</a>
+{% endblock %}
+
+{% block main %}
+<section class="hero">
+    <div class="hero__glow"></div>
+    <div class="hero__content">
+
+        <h1 class="hero__title">Register</h1>
+
+        <div class="form-card form-card--register">
+            <p class="form-card__subtitle">Lorem ipsum dolor sit amet</p>
+
+            {% if form.non_field_errors %}
+            <div class="alert alert--error" role="alert">
+                {% for e in form.non_field_errors %}{{ e }}{% endfor %}
+            </div>
+            {% endif %}
+
+            <form method="POST" action="{% url 'register' %}" id="registerForm" novalidate>
+                {% csrf_token %}
+
+                <!-- Row 1: First Name | Last Name -->
+                <div class="form-grid-2">
+                    <div class="form-group {% if form.first_name.errors %}form-group--error{% endif %}">
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %}<span class="field-error" role="alert">{{ form.first_name.errors.0 }}</span>{% endif %}
+                    </div>
+                    <div class="form-group {% if form.last_name.errors %}form-group--error{% endif %}">
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %}<span class="field-error" role="alert">{{ form.last_name.errors.0 }}</span>{% endif %}
+                    </div>
+                </div>
+
+                <!-- Row 2: Country | Code | Phone -->
+                <div class="form-grid-phone">
+                    <div class="form-group {% if form.country.errors %}form-group--error{% endif %}">
+                        {{ form.country }}
+                        {% if form.country.errors %}<span class="field-error" role="alert">{{ form.country.errors.0 }}</span>{% endif %}
+                    </div>
+                    <div class="form-group {% if form.country_code.errors %}form-group--error{% endif %}">
+                        <!-- Visible read-only code display -->
+                        <input type="text" id="code_display" placeholder="Code" readonly
+                               style="background:#f7f8fa;cursor:default;"
+                               aria-label="Country dial code">
+                        {{ form.country_code }}
+                        {% if form.country_code.errors %}<span class="field-error" role="alert">{{ form.country_code.errors.0 }}</span>{% endif %}
+                    </div>
+                    <div class="form-group {% if form.phone.errors %}form-group--error{% endif %}">
+                        {{ form.phone }}
+                        {% if form.phone.errors %}<span class="field-error" role="alert">{{ form.phone.errors.0 }}</span>{% endif %}
+                    </div>
+                </div>
+
+                <!-- Row 3: Email | Password -->
+                <div class="form-row-single">
+                    <div class="form-group {% if form.email.errors %}form-group--error{% endif %}">
+                        {{ form.email }}
+                        {% if form.email.errors %}<span class="field-error" role="alert">{{ form.email.errors.0 }}</span>{% endif %}
+                    </div>
+                    <div class="form-group {% if form.password.errors %}form-group--error{% endif %}">
+                        <div class="pw-wrap">
+                            {{ form.password }}
+                            <button type="button" class="toggle-pw" aria-label="Show password" data-target="id_password">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                            </button>
+                        </div>
+                        <div class="pw-strength-bar" id="pw_bar"></div>
+                        <ul class="pw-rules">
+                            <li class="pw-rule" data-rule="capital">1 uppercase</li>
+                            <li class="pw-rule" data-rule="number">1 number</li>
+                            <li class="pw-rule" data-rule="symbol">1 symbol</li>
+                            <li class="pw-rule" data-rule="length">8+ chars</li>
+                        </ul>
+                        {% if form.password.errors %}<span class="field-error" role="alert">{{ form.password.errors.0 }}</span>{% endif %}
+                    </div>
+                </div>
+
+                <!-- Terms checkbox -->
+                <div class="checkbox-row">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">
+                        I have read and accepted the
+                        <a href="#">Privacy Policy</a> and <a href="#">Terms and Conditions</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-submit btn-submit--green">Join Now</button>
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

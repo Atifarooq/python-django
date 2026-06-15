@@ -1,0 +1,38 @@
+{% extends "accounts/base.html" %}
+{% block title %}Dashboard – HF Markets{% endblock %}
+
+{% block header_cta %}
+    <form method="POST" action="{% url 'logout' %}" style="margin:0">
+        {% csrf_token %}
+        <button type="submit" class="btn-header btn-header--outline">Sign Out</button>
+    </form>
+{% endblock %}
+
+{% block main %}
+<section class="hero" style="justify-content:flex-start;padding-top:0">
+    <div class="hero__glow"></div>
+    <div style="position:relative;z-index:1;width:100%;max-width:680px;margin:3rem auto;padding:0 1.5rem">
+
+        <div style="text-align:center;margin-bottom:2rem">
+            <div class="success-icon" style="margin:0 auto 1rem">✓</div>
+            <h2 style="color:white;font-size:1.8rem;font-weight:800;letter-spacing:-.02em">
+                Welcome, {{ request.user.first_name }}!
+            </h2>
+            <p style="color:rgba(255,255,255,.6);margin-top:.4rem">You are successfully logged in to your HFM account.</p>
+        </div>
+
+        <div class="dash-card">
+            <h3>Account Details</h3>
+            <dl class="detail-list">
+                <dt>Full Name</dt><dd>{{ request.user.get_full_name }}</dd>
+                <dt>Email</dt><dd>{{ request.user.email }}</dd>
+                {% if profile %}
+                <dt>Country</dt><dd>{{ profile.get_country_display }}</dd>
+                <dt>Phone</dt><dd>{{ profile.full_phone }}</dd>
+                <dt>Member Since</dt><dd>{{ profile.created_at|date:"N j, Y" }}</dd>
+                {% endif %}
+            </dl>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "accounts/base.html" %}
+{% block title %}Account Created – HF Markets{% endblock %}
+
+{% block header_cta %}
+    <a href="{% url 'login' %}" class="btn-header btn-header--outline">Login</a>
+{% endblock %}
+
+{% block main %}
+<section class="hero">
+    <div class="hero__glow"></div>
+    <div class="hero__content">
+        <div class="form-card form-card--login">
+            <div class="success-state" role="main">
+                <div class="success-icon">✓</div>
+                <h2>Account Created!</h2>
+                <p>Thank you for signing up with HF Markets,<br><strong>{{ request.user.get_full_name }}</strong>.</p>
+                <p>Your account has been created and you are now logged in.</p>
+                <a href="{% url 'dashboard' %}" class="btn-submit btn-submit--green" style="display:block;text-align:center;text-decoration:none;margin-top:1.5rem;padding:.85rem">
+                    Go to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

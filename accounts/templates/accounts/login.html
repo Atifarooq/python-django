@@ -1,0 +1,49 @@
+{% extends "accounts/base.html" %}
+{% block title %}Login – HF Markets{% endblock %}
+
+{% block header_cta %}
+    <a href="{% url 'register' %}" class="btn-header btn-header--green">Register</a>
+{% endblock %}
+
+{% block main %}
+<section class="hero">
+    <div class="hero__glow"></div>
+    <div class="hero__content">
+
+        <h1 class="hero__title">Login</h1>
+
+        <div class="form-card form-card--login">
+            <p class="form-card__subtitle">Lorem ipsum dolor sit amet</p>
+
+            {% if form.non_field_errors %}
+            <div class="alert alert--error" role="alert">
+                {% for e in form.non_field_errors %}{{ e }}{% endfor %}
+            </div>
+            {% endif %}
+
+            <form method="POST" action="{% url 'login' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}"
+                  id="loginForm" novalidate>
+                {% csrf_token %}
+
+                <div class="form-group {% if form.email.errors %}form-group--error{% endif %}" style="margin-bottom:.85rem">
+                    {{ form.email }}
+                    {% if form.email.errors %}<span class="field-error" role="alert">{{ form.email.errors.0 }}</span>{% endif %}
+                </div>
+
+                <div class="form-group {% if form.password.errors %}form-group--error{% endif %}" style="margin-bottom:1.25rem">
+                    <div class="pw-wrap">
+                        {{ form.password }}
+                        <button type="button" class="toggle-pw" aria-label="Show password" data-target="id_password">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                        </button>
+                    </div>
+                    {% if form.password.errors %}<span class="field-error" role="alert">{{ form.password.errors.0 }}</span>{% endif %}
+                </div>
+
+                <button type="submit" class="btn-submit btn-submit--red">Login</button>
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

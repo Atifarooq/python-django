@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}HFM – HF Markets{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <!-- ── HEADER ── -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="{% url 'register' %}" class="header-logo">
+                <span class="header-logo__eyebrow">Member of HF Markets Group</span>
+                <div class="header-logo__mark">
+                    <!-- HFM SVG logo matching the actual brand mark -->
+                    <svg class="logo-svg" viewBox="0 0 80 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- H -->
+                        <rect x="0"  y="2"  width="5" height="30" fill="white"/>
+                        <rect x="0"  y="14" width="16" height="5" fill="white"/>
+                        <rect x="11" y="2"  width="5" height="30" fill="white"/>
+                        <!-- F -->
+                        <rect x="20" y="2"  width="5" height="30" fill="white"/>
+                        <rect x="20" y="2"  width="14" height="5" fill="white"/>
+                        <rect x="20" y="13" width="11" height="5" fill="white"/>
+                        <!-- M chevron (white left half) -->
+                        <polygon points="38,2 43,2 53,17 43,32 38,32 48,17" fill="white"/>
+                        <!-- M chevron (red right half) -->
+                        <polygon points="48,17 58,2 63,2 53,17" fill="#E8192C"/>
+                        <polygon points="53,17 63,2 68,2 58,32 53,32 58,17" fill="white"/>
+                    </svg>
+                    <span class="header-logo__wordmark">HF MARKETS</span>
+                </div>
+            </a>
+
+            <!-- CTA flips based on current page -->
+            {% block header_cta %}{% endblock %}
+        </div>
+    </header>
+
+    <!-- ── MAIN ── -->
+    <main>{% block main %}{% endblock %}</main>
+
+    <script src="{% static 'js/app.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
